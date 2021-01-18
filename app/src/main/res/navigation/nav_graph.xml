@@ -34,10 +34,19 @@
         android:id="@+id/createPostFragment"
         android:name="com.example.networkingassignment.CreatePostFragment"
         android:label="fragment_create_post"
-        tools:layout="@layout/fragment_create_post" />
+        tools:layout="@layout/fragment_create_post" >
+        <action
+            android:id="@+id/action_createPostFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/updatePostFragment"
         android:name="com.example.networkingassignment.UpdatePostFragment"
         android:label="fragment_update_post"
-        tools:layout="@layout/fragment_update_post" />
+        tools:layout="@layout/fragment_update_post" >
+        <argument
+            android:name="postIdToUpdate"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
 </navigation>

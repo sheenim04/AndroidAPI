@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_post_details.*
 import kotlinx.coroutines.*
@@ -25,7 +27,14 @@ class PostDetailsFragment : Fragment() {
         // Inflate the layout for this fragment
        val view = inflater.inflate(R.layout.fragment_post_details, container, false)
 
-       // view.findViewById<TextView>(R.id.details_id).text = args.postId.toString()
+        view.findViewById<Button>(R.id.btn_createPost).setOnClickListener {
+            findNavController().navigate(R.id.action_postDetailsFragment_to_createPostFragment)
+        }
+
+        view.findViewById<Button>(R.id.btn_updatePost).setOnClickListener{
+            val action = PostDetailsFragmentDirections.actionPostDetailsFragmentToUpdatePostFragment(args.postId)
+            findNavController().navigate(action)
+        }
 
         return view
     }
@@ -53,15 +62,9 @@ class PostDetailsFragment : Fragment() {
     suspend fun loadData(){
         val details = withContext(Dispatchers.IO){ getDetails()}
         setDetails(details)
-        /*Toast.makeText(
-            requireContext(),
-            details.toString(),
-            Toast.LENGTH_SHORT
-        ).show()*/
     }
 
     private suspend fun getDetails(): Posts? {
-        //delay(1000L)
         val response = ApiClient.client.getPost(args.postId)
         val data = response.body()
 
@@ -80,7 +83,5 @@ class PostDetailsFragment : Fragment() {
             details_title.text = postDetails.title
             details_body.text = postDetails.body
         }
-
-
     }
 }

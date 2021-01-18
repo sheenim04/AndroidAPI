@@ -1,14 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreatePostFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <RelativeLayout
+        android:id="@+id/create_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginBottom="50dp"
+            android:text="CREATE POST"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_create_userID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User ID: "
+            android:textSize="15dp"
+            android:layout_below="@id/tv_create"
+            />
+
+        <EditText
+            android:id="@+id/et_create_userID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:inputType="number"
+            android:layout_below="@id/tv_create_userID"
+            />
+
+        <TextView
+            android:id="@+id/tv_create_ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID: "
+            android:textSize="15dp"
+            android:layout_below="@id/et_create_userID"
+            />
+
+        <EditText
+            android:id="@+id/et_create_ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_create_ID"
+            android:textSize="15dp"
+            android:inputType="number"
+            />
+
+        <TextView
+            android:id="@+id/tv_create_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title: "
+            android:textSize="15dp"
+            android:layout_below="@id/et_create_ID"
+            />
+
+        <EditText
+            android:id="@+id/et_create_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_create_title"
+            android:textSize="15dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_create_body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Body: "
+            android:textSize="15dp"
+            android:layout_below="@id/et_create_title"
+            />
+
+        <EditText
+            android:id="@+id/et_create_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_create_body"
+            android:textSize="15dp" />
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_confirmPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm Post"
+        android:layout_margin="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/create_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

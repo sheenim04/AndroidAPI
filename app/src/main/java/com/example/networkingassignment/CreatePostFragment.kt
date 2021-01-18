@@ -5,55 +5,78 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_create_post.*
+import kotlinx.android.synthetic.main.fragment_post_details.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
+import java.lang.Integer.parseInt
+import java.net.URI.create
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CreatePostFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CreatePostFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    val scope = MainScope()
+    private lateinit var nameController: NameController
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_post, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_create_post, container, false)
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CreatePostFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                CreatePostFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        btn_confirmPost.setOnClickListener {
+            scope.launch {
+                try {
+                    loadNewPost()
+                    findNavController().navigate(R.id.action_createPostFragment_to_mainFragment)
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Exception occurred: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+            }
+        }
     }
+
+
+    suspend fun loadNewPost(){
+        val newPost = withContext(Dispatchers.IO){ getNewPost()}
+        setNewPost(newPost)
+    }
+
+
+     suspend fun getNewPost() : List<Posts>{
+         val userId = parseInt(et_create_userID.text.toString())
+         val id = parseInt(et_create_ID.text.toString())
+         val title = et_create_title.text.toString()
+         val body = et_create_body.text.toString()
+
+         val response = ApiClient.client.createPost(PostRequest(userId, id, title, body))
+
+         if(response != null){
+             return response
+         }
+         else{
+             throw Exception("Error")
+         }
+    }
+
+    private fun setNewPost(post: List<Posts>){
+        nameController.setPosts(post)
+    }
+
 }

@@ -11,7 +11,7 @@
     tools:ignore="MissingDefaultResource">
 
     <RelativeLayout
-        android:id="@+id/relative_layout"
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

@@ -1,8 +1,9 @@
 package com.example.networkingassignment
 
+import android.view.View
 import com.airbnb.epoxy.EpoxyController
 
-class NameController : EpoxyController() {
+class NameController(private val listener: (View, Int) -> Unit) : EpoxyController() {
 
     private var names : List<Posts> = listOf()
 
@@ -16,6 +17,9 @@ class NameController : EpoxyController() {
                         .p_id(name.id)
                         .title(name.title)
                         .body(name.body)
+                        .clickListener{ model, _, view, _ ->
+                            listener.invoke(view, model.p_id())
+                        }
                         .addTo(this)
             }
         }

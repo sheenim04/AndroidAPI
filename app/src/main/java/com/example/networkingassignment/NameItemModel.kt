@@ -10,24 +10,27 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import kotlinx.android.synthetic.main.item_name.view.*
 import java.lang.Package.getPackage
-import com.airbnb.epoxy.EpoxyAttribute as EpoxyAttribute1
+import com.airbnb.epoxy.EpoxyAttribute
 
 @SuppressLint("NonConstantResourceId")
 @EpoxyModelClass(layout = R.layout.item_name)
 abstract class NameItemModel : EpoxyModelWithHolder<NameItemModel.ViewHolder>() {
 
 
-  @EpoxyAttribute1
+  @EpoxyAttribute
     var userId : Int = 0
 
-    @EpoxyAttribute1
+    @EpoxyAttribute
     var p_id : Int = 0
 
-    @EpoxyAttribute1
+    @EpoxyAttribute
     lateinit var title: String
 
-    @EpoxyAttribute1
+    @EpoxyAttribute
     lateinit var body: String
+
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    var clickListener: View.OnClickListener? = null
 
 
     override fun bind(holder: ViewHolder) {
@@ -37,9 +40,16 @@ abstract class NameItemModel : EpoxyModelWithHolder<NameItemModel.ViewHolder>() 
         holder.textID.text =  "" + p_id
         holder.textTitle.text = title
         holder.textBody.text = body
+        holder.cardView.setOnClickListener(clickListener)
+    }
+
+    override fun unbind(holder: ViewHolder) {
+        super.unbind(holder)
+        holder.cardView.setOnClickListener(null)
     }
 
     class ViewHolder : BaseEpoxyHolder() {
+        lateinit var cardView: View
         lateinit var textUserID: TextView
         lateinit var textID : TextView
         lateinit var textTitle : TextView
@@ -49,6 +59,7 @@ abstract class NameItemModel : EpoxyModelWithHolder<NameItemModel.ViewHolder>() 
         override fun bindView(itemView: View) {
             super.bindView(itemView)
             itemView.let {
+                cardView = it.card
                 textUserID = it.txt_userId
                 textID = it.txt_id
                 textTitle = it.txt_title

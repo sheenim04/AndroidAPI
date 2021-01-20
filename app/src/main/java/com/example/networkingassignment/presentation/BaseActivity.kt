@@ -1,4 +1,4 @@
-package com.example.networkingassignment
+package com.example.networkingassignment.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

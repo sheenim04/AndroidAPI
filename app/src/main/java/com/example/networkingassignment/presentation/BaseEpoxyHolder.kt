@@ -1,4 +1,4 @@
-package com.example.networkingassignment
+package com.example.networkingassignment.presentation
 
 import android.view.View
 import androidx.annotation.CallSuper

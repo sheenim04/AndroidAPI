@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PostDetailsFragment">
+    tools:context=".presentation.PostDetailsFragment">
 
     <RelativeLayout
         android:id="@+id/relative"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="User ID: "
+
             android:gravity="center"/>
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="Post ID: "
+
             android:layout_below="@id/details_userID"
             android:gravity="center"
             />
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="Title"
+
             android:layout_below="@id/details_id"
             />
 
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="body"
+
             android:layout_below="@id/details_title"
             />
 

@@ -1,7 +1,8 @@
-package com.example.networkingassignment
+package com.example.networkingassignment.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.networkingassignment.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

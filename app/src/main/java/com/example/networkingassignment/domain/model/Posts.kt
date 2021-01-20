@@ -1,11 +1,11 @@
-package com.example.networkingassignment
+package com.example.networkingassignment.domain.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PostRequest (
+data class Posts (
         val userId: Int,
         val id: Int,
         val title: String,
         val body: String
-        )
+)

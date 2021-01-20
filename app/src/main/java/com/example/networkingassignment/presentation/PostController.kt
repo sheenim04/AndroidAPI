@@ -1,17 +1,18 @@
-package com.example.networkingassignment
+package com.example.networkingassignment.presentation
 
 import android.view.View
 import com.airbnb.epoxy.EpoxyController
+import com.example.networkingassignment.domain.model.Posts
 
-class NameController(private val listener: (View, Int) -> Unit) : EpoxyController() {
+class PostController(private val listener: (View, Int) -> Unit) : EpoxyController() {
 
-    private var names : List<Posts> = listOf()
+    private  var names : List<Posts> = listOf()
 
     override fun buildModels() {
 
         names.let {
             it.forEachIndexed { index, name ->
-                NameItemModel_()
+                PostItemModel_()
                         .id(index)
                         .userId(name.userId)
                         .p_id(name.id)

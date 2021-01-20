@@ -1,20 +1,17 @@
- package com.example.networkingassignment
+ package com.example.networkingassignment.presentation
 
 import android.annotation.SuppressLint
 import android.view.View
-import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import kotlinx.android.synthetic.main.item_name.view.*
-import java.lang.Package.getPackage
 import com.airbnb.epoxy.EpoxyAttribute
+import com.example.networkingassignment.R
 
-@SuppressLint("NonConstantResourceId")
+ @SuppressLint("NonConstantResourceId")
 @EpoxyModelClass(layout = R.layout.item_name)
-abstract class NameItemModel : EpoxyModelWithHolder<NameItemModel.ViewHolder>() {
+abstract class PostItemModel : EpoxyModelWithHolder<PostItemModel.ViewHolder>() {
 
 
   @EpoxyAttribute

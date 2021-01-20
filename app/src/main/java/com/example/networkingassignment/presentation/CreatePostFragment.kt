@@ -1,4 +1,4 @@
-package com.example.networkingassignment
+package com.example.networkingassignment.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,22 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.networkingassignment.domain.model.PostRequest
+import com.example.networkingassignment.R
+import com.example.networkingassignment.data.remote.PostService
+import com.example.networkingassignment.domain.model.Posts
 import kotlinx.android.synthetic.main.fragment_create_post.*
-import kotlinx.android.synthetic.main.fragment_post_details.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONObject
 import java.lang.Integer.parseInt
-import java.net.URI.create
 
-class CreatePostFragment : Fragment() {
+class CreatePostFragment(val service: PostService) : Fragment() {
 
     val scope = MainScope()
-    private lateinit var nameController: NameController
+    private lateinit var postController: PostController
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +39,6 @@ class CreatePostFragment : Fragment() {
             scope.launch {
                 try {
                     loadNewPost()
-                    findNavController().navigate(R.id.action_createPostFragment_to_mainFragment)
                 } catch (e: Exception) {
                     Toast.makeText(
                         requireContext(),
@@ -59,24 +57,23 @@ class CreatePostFragment : Fragment() {
     }
 
 
-     suspend fun getNewPost() : List<Posts>{
-         val userId = parseInt(et_create_userID.text.toString())
-         val id = parseInt(et_create_ID.text.toString())
-         val title = et_create_title.text.toString()
-         val body = et_create_body.text.toString()
+     suspend fun getNewPost() : List<Posts> {
+         val newUserId = parseInt(et_create_userID.text.toString())
+         val newId = parseInt(et_create_ID.text.toString())
+         val newTitle = et_create_title.text.toString()
+         val newBody = et_create_body.text.toString()
 
-         val response = ApiClient.client.createPost(PostRequest(userId, id, title, body))
+         val response = service.createPost(PostRequest(newUserId, newId, newTitle, newBody))
 
-         if(response != null){
-             return response
-         }
-         else{
+         return if(response != null){
+             response
+         } else{
              throw Exception("Error")
          }
     }
 
-    private fun setNewPost(post: List<Posts>){
-        nameController.setPosts(post)
+    private fun setNewPost(post:List<Posts>){
+        postController.setPosts(post)
     }
 
 }

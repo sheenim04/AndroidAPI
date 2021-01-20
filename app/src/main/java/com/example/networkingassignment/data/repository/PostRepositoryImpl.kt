@@ -15,4 +15,11 @@ class PostRepositoryImpl(val remote: PostRemoteSource, val cache: PostCacheSourc
         cache.posts = posts
         return posts
     }
+
+    override suspend fun getPost(id: Int): Posts {
+        val post = remote.getPost()
+        //   cache.post = post
+        return post
+    }
+
 }

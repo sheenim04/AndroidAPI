@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.networkingassignment.R
+import com.example.networkingassignment.data.remote.PostRemoteSource
+import com.example.networkingassignment.data.remote.PostService
 import kotlinx.android.synthetic.main.activity_recycler.*
 
 

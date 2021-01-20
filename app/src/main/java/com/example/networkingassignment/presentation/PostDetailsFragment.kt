@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -21,12 +22,12 @@ import kotlinx.android.synthetic.main.fragment_post_details.*
 import kotlinx.coroutines.*
 
 
-class PostDetailsFragment(val service: PostService) : Fragment() {
+class PostDetailsFragment() : Fragment() {
 
     val scope = MainScope()
     val args: PostDetailsFragmentArgs by navArgs()
-    private val viewModelFactory: MainViewModelFactory by lazy { MainViewModelFactory() }
-    private val viewModel: MainViewModel by viewModels { viewModelFactory }
+    private val viewModelFactory: DetailsViewModelFactory by lazy { DetailsViewModelFactory() }
+    private val viewModel: DetailsViewModel by viewModels { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,41 +51,15 @@ class PostDetailsFragment(val service: PostService) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        scope.launch {
-            try {
-                loadData()
-            }
-
-            catch(e:Exception){
-                Toast.makeText(
-                    requireContext(),
-                    "Exception occurred: ${e.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
+        viewModel.loadDetails()
+        viewModel.detail.observe(viewLifecycleOwner){
+            val post = it
+            setDetails(post)
         }
+
 
     }
 
-    suspend fun loadData(){
-        val details = withContext(Dispatchers.IO){ getDetails()}
-        setDetails(details)
-    }
-
-    private suspend fun getDetails(): Posts {
-        val response = service.getPost(args.postId)
-        val data = response.body()
-
-
-        if(response.isSuccessful && data != null){
-            return data
-        }
-        else{
-            throw Exception(response.message())
-        }
-
-    }
 
     private fun setDetails(postDetails: Posts){
         if(postDetails != null){
@@ -94,4 +69,6 @@ class PostDetailsFragment(val service: PostService) : Fragment() {
             details_body.text = postDetails.body
         }
     }
+
+
 }

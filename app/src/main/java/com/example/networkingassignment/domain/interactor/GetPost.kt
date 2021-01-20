@@ -5,7 +5,7 @@ import com.example.networkingassignment.domain.repository.PostRepository
 
 class GetPost(val repository: PostRepository) {
 
-    suspend operator fun invoke(): List<Posts> {
-        return repository.getPosts()
+    suspend operator fun invoke(postId: Int): Posts {
+        return repository.getPost()
     }
 }

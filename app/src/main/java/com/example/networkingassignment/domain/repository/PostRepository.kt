@@ -6,4 +6,6 @@ import retrofit2.Response
 interface PostRepository {
 
     suspend fun getPosts(): List<Posts>
+
+    suspend fun getPost(id: Int): Posts
 }

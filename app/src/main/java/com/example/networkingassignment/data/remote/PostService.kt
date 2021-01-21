@@ -14,7 +14,7 @@ interface PostService {
     suspend fun getPost(@Path("id") id: Int): Response<Posts>
 
     @POST("/posts")
-    suspend fun createPost(@Body body: PostRequest): List<Posts>
+    suspend fun createPost(@Body body: PostRequest): Response<Posts>
 
     @PUT("/posts/{id}")
     suspend fun updatePost(@Path("id") id: Int, @Body body: PostRequest): List<Posts>

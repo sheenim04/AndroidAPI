@@ -4,6 +4,7 @@ import com.example.networkingassignment.data.cache.PostCacheSource
 import com.example.networkingassignment.data.remote.PostRemoteSource
 import com.example.networkingassignment.domain.model.Posts
 import com.example.networkingassignment.domain.repository.PostRepository
+import com.example.networkingassignment.presentation.PostDetailsFragment
 
 class PostRepositoryImpl(val remote: PostRemoteSource, val cache: PostCacheSource) : PostRepository {
 
@@ -16,9 +17,14 @@ class PostRepositoryImpl(val remote: PostRemoteSource, val cache: PostCacheSourc
         return posts
     }
 
-    override suspend fun getPost(id: Int): Posts {
-        val post = remote.getPost()
+    override suspend fun getPost(postId: Int): Posts {
+        val post = remote.getPost(postId)
         //   cache.post = post
+        return post
+    }
+
+    override suspend fun createPost(userId: Int, id: Int, title: String, body: String): Posts {
+        val post = remote.createPost(userId, id, title, body)
         return post
     }
 

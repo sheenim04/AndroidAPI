@@ -17,9 +17,9 @@ class DetailsViewModel(val getPost: GetPost) : ViewModel() {
     val detail: LiveData<Posts>
     get() = _detail
 
-    fun loadDetails(){
+    fun loadDetails(postId: Int){
         viewModelScope.launch{
-            _detail.value = getPost(PostDetailsFragment().args.postId)
+            _detail.value = getPost(postId)
         }
     }
 

@@ -4,6 +4,7 @@ import com.example.networkingassignment.data.cache.PostCacheSource
 import com.example.networkingassignment.data.remote.PostRemoteSource
 import com.example.networkingassignment.data.remote.PostService
 import com.example.networkingassignment.data.repository.PostRepositoryImpl
+import com.example.networkingassignment.domain.interactor.CreatePost
 import com.example.networkingassignment.domain.interactor.GetPost
 import com.example.networkingassignment.domain.interactor.GetPosts
 import com.example.networkingassignment.domain.model.Posts
@@ -42,5 +43,6 @@ object ServiceLocator {
 
     val getPosts = GetPosts(postRepository)
     val getPost = GetPost(postRepository)
+    val createPost = CreatePost(postRepository)
 
 }

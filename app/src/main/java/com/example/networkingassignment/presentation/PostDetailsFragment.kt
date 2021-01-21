@@ -51,7 +51,7 @@ class PostDetailsFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.loadDetails()
+        viewModel.loadDetails(args.postId)
         viewModel.detail.observe(viewLifecycleOwner){
             val post = it
             setDetails(post)

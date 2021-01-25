@@ -1,2 +1,5 @@
+include ':common'
+include ':post'
+include ':album'
 include ':app'
 rootProject.name = "Networking Assignment"

@@ -19,7 +19,10 @@ class AlbumRepositoryImpl(val remote: AlbumRemoteSource, val cache: AlbumCacheSo
     }
 
     override suspend fun getAlbum(albumId: Int): Albums {
-        val album = remote.getAlbum(albumId)
-        return album
+        return remote.getAlbum(albumId)
+    }
+
+    override suspend fun createAlbum(userId: Int, id: Int, title: String): Albums {
+        return remote.createAlbum(userId, id, title)
     }
 }

@@ -4,6 +4,7 @@ import com.example.networkingassignment.album.data.cache.AlbumCacheSource
 import com.example.networkingassignment.album.data.remote.AlbumRemoteSource
 import com.example.networkingassignment.album.data.remote.AlbumService
 import com.example.networkingassignment.album.data.repository.AlbumRepositoryImpl
+import com.example.networkingassignment.album.domain.interactor.GetAlbum
 import com.example.networkingassignment.album.domain.interactor.GetAlbums
 import com.example.networkingassignment.common.CommonServiceLocator
 import retrofit2.create
@@ -16,4 +17,5 @@ object AlbumServiceLocator {
     private val albumRepository = AlbumRepositoryImpl(albumRemoteSource, albumCacheSource)
 
     val getAlbums = GetAlbums(albumRepository)
+    val getAlbum = GetAlbum(albumRepository)
 }

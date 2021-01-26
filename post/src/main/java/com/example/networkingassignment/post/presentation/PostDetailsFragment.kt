@@ -17,7 +17,6 @@ import kotlinx.coroutines.*
 
 class PostDetailsFragment() : Fragment() {
 
-    val scope = MainScope()
     val args: PostDetailsFragmentArgs by navArgs()
     private val viewModelFactory: DetailsViewModelFactory by lazy { DetailsViewModelFactory() }
     private val viewModel: DetailsViewModel by viewModels { viewModelFactory }

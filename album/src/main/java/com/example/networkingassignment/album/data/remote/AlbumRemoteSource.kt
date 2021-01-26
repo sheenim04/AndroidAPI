@@ -15,4 +15,16 @@ class AlbumRemoteSource(val service: AlbumService) {
             throw Exception(response.message())
         }
     }
+
+    suspend fun getAlbum(albumId: Int): Albums{
+        val response = service.getAlbum(albumId)
+        val data = response.body()
+
+        if(response.isSuccessful && data != null){
+            return data
+        }
+        else{
+            throw Exception(response.message())
+        }
+    }
 }

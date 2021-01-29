@@ -22,7 +22,7 @@ object CommonServiceLocator {
     //Retrofit Instance
     private val contentType = "application/json".toMediaType()
     val service = Retrofit.Builder()
-        .baseUrl("https://jsonplaceholder.typicode.com")
+        .baseUrl(BuildConfig.API_BASE_URL)
         .client(client)
         .addConverterFactory(Json.asConverterFactory(contentType))
         .build()

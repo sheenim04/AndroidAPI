@@ -33,6 +33,30 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    flavorDimensions "tier", "env"
+    productFlavors {
+        free {
+            dimension "tier"
+            versionNameSuffix "-free"
+        }
+
+        paid {
+            dimension "tier"
+            versionNameSuffix "-paid"
+        }
+
+        dev {
+            dimension "env"
+            buildConfigField("String", "API_BASE_URL", "\"https://jsonplaceholder.typicode.com/\"")
+        }
+
+        prod {
+            dimension "env"
+            buildConfigField("String", "API_BASE_URL", "\"https://production.com/api/\"")
+        }
+    }
+
 }
 
 dependencies {
